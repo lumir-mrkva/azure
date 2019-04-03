@@ -598,7 +598,6 @@
     ], 
     "variables": {
         "Description": "Docker for Azure 18.09.2-ce-azure1", 
-        "name": "pid-b64754ba-3fee-5daf-8847-71f8ddb65778",
         "accountID": "[subscription().subscriptionId]", 
         "adServicePrincipalTenantID": "[subscription().tenantId]", 
         "adminUsername": "docker", 
