@@ -75,7 +75,7 @@
                 14, 
                 15
             ], 
-            "defaultValue": 1, 
+            "defaultValue": 2, 
             "metadata": {
                 "description": "Number of Linux worker VMs"
             }, 
@@ -107,7 +107,8 @@
                 "Standard_D2_v2", 
                 "Standard_D3_v2", 
                 "Standard_D4_v2", 
-                "Standard_D5_v2", 
+                "Standard_D5_v2",
+                "Standard_D4_v3",  
                 "Standard_D11_v2", 
                 "Standard_D12_v2", 
                 "Standard_D13_v2", 
@@ -164,11 +165,12 @@
                 3, 
                 5
             ], 
-            "defaultValue": 1, 
+            "defaultValue": 3, 
             "type": "int"
         }, 
         "managerVMSize": {
             "allowedValues": [
+                "Standard_F2s_v2",
                 "Standard_A0", 
                 "Standard_A1", 
                 "Standard_A2", 
@@ -238,7 +240,7 @@
                 "Standard_GS4", 
                 "Standard_GS5"
             ], 
-            "defaultValue": "Standard_D2_v2", 
+            "defaultValue": "Standard_F2s_v2", 
             "metadata": {
                 "description": "The size of the Swarm manager VMs"
             }, 
@@ -265,10 +267,6 @@
             "sku": {
                 "name": "Standard_LRS"
             }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
-            }, 
             "type": "Microsoft.Storage/storageAccounts"
         }, 
         {
@@ -278,10 +276,6 @@
             "name": "[variables('swarmLogsStorageAccount')]", 
             "sku": {
                 "name": "Standard_LRS"
-            }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
             }, 
             "type": "Microsoft.Storage/storageAccounts"
         }, 
@@ -304,10 +298,6 @@
                         }
                     }
                 ]
-            }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
             }, 
             "type": "Microsoft.Network/virtualNetworks"
         }, 
@@ -402,10 +392,6 @@
                 "name": "[variables('managerVMSize')]", 
                 "tier": "Standard"
             }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
-            }, 
             "type": "Microsoft.Compute/virtualMachineScaleSets"
         }, 
         {
@@ -498,10 +484,6 @@
                 "name": "[variables('linuxWorkerVMSize')]", 
                 "tier": "Standard"
             }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
-            }, 
             "type": "Microsoft.Compute/virtualMachineScaleSets"
         }, 
         {
@@ -513,10 +495,6 @@
                     "domainNameLabel": "[variables('lbPublicIpDnsName')]"
                 }, 
                 "publicIPAllocationMethod": "Static"
-            }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
             }, 
             "type": "Microsoft.Network/publicIPAddresses"
         }, 
@@ -555,10 +533,6 @@
                     }
                 ]
             }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
-            }, 
             "type": "Microsoft.Network/loadBalancers"
         }, 
         {
@@ -567,10 +541,6 @@
             "name": "[variables('lbSSHPublicIPAddressName')]", 
             "properties": {
                 "publicIPAllocationMethod": "Static"
-            }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
             }, 
             "type": "Microsoft.Network/publicIPAddresses"
         }, 
@@ -623,16 +593,11 @@
                     }
                 ]
             }, 
-            "tags": {
-                "channel": "[variables('channel')]", 
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
-            }, 
             "type": "Microsoft.Network/loadBalancers"
         }
     ], 
     "variables": {
         "Description": "Docker for Azure 18.09.2-ce-azure1", 
-	"DockerProviderTag": "8CF0E79C-DF97-4992-9B59-602DB544D354",
         "name": "pid-b64754ba-3fee-5daf-8847-71f8ddb65778",
         "accountID": "[subscription().subscriptionId]", 
         "adServicePrincipalTenantID": "[subscription().tenantId]", 
